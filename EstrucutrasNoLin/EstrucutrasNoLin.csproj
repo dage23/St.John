@@ -41,7 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArbolPrincipal.cs" />
+    <Compile Include="ArbolBinarioBusqueda.cs" />
+    <Compile Include="Nodos.cs" />
     <Compile Include="iEstructuraNoLineales.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
