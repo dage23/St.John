@@ -14,12 +14,10 @@ namespace EstrucutrasNoLin
         {
             throw new NotImplementedException();
         }
-
         public IEnumerator<T> GetEnumerator()
         {
             throw new NotImplementedException();
         }
-
         public ArbolBinarioBusqueda(cNodo<T> Raiz)
         {
             this.Raiz = Raiz;

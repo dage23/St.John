@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{06660E1F-0662-4F50-9D75-455F2B2DAD78}</ProjectGuid>
+    <ProjectGuid>{A0A60DB7-0D4E-430A-91EB-35FF5EDD21D5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EstrucutrasNoLin</RootNamespace>
-    <AssemblyName>EstrucutrasNoLin</AssemblyName>
+    <RootNamespace>lEstructurasLineales</RootNamespace>
+    <AssemblyName>lEstructurasLineales</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -41,12 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArbolBinarioBusqueda.cs" />
-    <Compile Include="EstructurasLineales\cListaDoblementeEnlazada.cs" />
-    <Compile Include="EstructurasLineales\cNodo.cs" />
-    <Compile Include="EstructurasLineales\iEstructuraDatosLineales.cs" />
-    <Compile Include="Nodos.cs" />
-    <Compile Include="iEstructuraNoLineales.cs" />
+    <Compile Include="cListaDoblementeEnlazada.cs" />
+    <Compile Include="cNodo.cs" />
+    <Compile Include="cPila.cs" />
+    <Compile Include="iEstructuraDatosLineales.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
