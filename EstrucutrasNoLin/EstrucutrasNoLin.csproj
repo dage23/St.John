@@ -41,12 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArbolBinarioBusqueda.cs" />
+    <Compile Include="EstructNoLineales\ArbolBinarioBusqueda.cs" />
     <Compile Include="EstructurasLineales\cListaDoblementeEnlazada.cs" />
     <Compile Include="EstructurasLineales\cNodo.cs" />
     <Compile Include="EstructurasLineales\iEstructuraDatosLineales.cs" />
-    <Compile Include="Nodos.cs" />
-    <Compile Include="iEstructuraNoLineales.cs" />
+    <Compile Include="EstructNoLineales\Nodos.cs" />
+    <Compile Include="EstructNoLineales\iEstructuraNoLineales.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

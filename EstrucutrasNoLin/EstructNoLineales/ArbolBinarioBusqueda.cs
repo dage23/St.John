@@ -7,21 +7,23 @@ using System.Threading.Tasks;
 
 namespace EstrucutrasNoLin
 {
-    class ArbolBinarioBusqueda<T> : iEstructuraNoLineales<T>, IEnumerable<T> where T : IComparable
+    public class ArbolBinarioBusqueda<T> : iEstructuraNoLineales<T> where T : IComparable
     {
-        public cNodo<T> Raiz { get; set; }
+        private cNodo<T> Raiz { get; set; }
         public void Buscar(T value)
         {
             throw new NotImplementedException();
         }
-        public IEnumerator<T> GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
-        public ArbolBinarioBusqueda(cNodo<T> Raiz)
+        
+        private ArbolBinarioBusqueda(cNodo<T> Raiz)
         {
             this.Raiz = Raiz;
         }
+
+        public ArbolBinarioBusqueda()
+        {
+        }
+
         public void Insertar(T value)
         {
             if (Raiz == null)
@@ -62,9 +64,6 @@ namespace EstrucutrasNoLin
                 }
             }
         }
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
+     
     }
 }

@@ -19,7 +19,7 @@ namespace St.John.Controllers
         public ActionResult Index(HttpPostedFileBase postedFile)
         {
            
-            List<DatosFarma> customers = new List<DatosFarma>();
+            List<DatosFarma> ListaDrogas = new List<DatosFarma>();
             string filePath = string.Empty;
             if (postedFile != null)
             {
@@ -34,35 +34,35 @@ namespace St.John.Controllers
 
                 string csvData = System.IO.File.ReadAllText(filePath);
                 Regex CSV = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))");
-                String[] fields = CSV.Split(csvData);
-                for (int i = 5; i < (fields.Length)-3; i++)
+                foreach (string row in csvData.Split('\n'))
                 {
-                //    fields[i]=fields[i].TrimStart(' ', '"');
-                //    fields[i] = fields[i].TrimEnd('"');
-                    fields[i] = fields[i].Trim();
-                    string Id = fields[i];
-                    i++;
-                    string nombre = fields[i];
-                    i++;
-                    string descripcion = fields[i];
-                    i++;
-                    string casa = fields[i];
-                    i++;
-                    string precio = fields[i];
-                    i++;
-                    string existecia = fields[i];
-                    customers.Add(new DatosFarma
+                    if (!string.IsNullOrEmpty(row))
                     {
-                        Codigo = Id,
-                        Nombre = nombre,
-                        Descricpion = descripcion,
-                        Origen = casa,
-                        Precio = precio,
-                        Existencia = existecia
-                    });
+                        String[] fields = CSV.Split(row);
+                        for (int i = 0; i < 1; i++)
+                        {
+                            fields[i] = fields[i].Trim();
+                            string Id = fields[0];
+                            string nombre = fields[1];
+                            string descripcion = fields[2];
+                            string casa = fields[3];
+                            string precio = fields[4];
+                            string existecia = fields[5];
+                            ListaDrogas.Add(new DatosFarma
+                            {
+                                Codigo = Id,
+                                Nombre = nombre,
+                                Descricpion = descripcion,
+                                Origen = casa,
+                                Precio = precio,
+                                Existencia = existecia
+                            });
+                        }
+                        
+                    }
                 }
             }
-            return View(customers);
+            return View(ListaDrogas);
         }
         // GET: Farma/Details/5
         public ActionResult Details(int id)
