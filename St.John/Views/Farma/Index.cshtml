@@ -7,7 +7,8 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
+    <title>Medicamentos</title>
+   
     <style type="text/css">
 
         body {
@@ -38,11 +39,15 @@
     </style>
 </head>
 <body>
+
     @using (Html.BeginForm("Index", "Farma", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         <input type="file" name="postedFile" />
         <input type="submit" value="Importar" />
     }
+    <div>
+        @Html.ActionLink("Solicitar Pedido", "Pedido")
+    </div>
     @if (Model.Count() > 0)
     {
         <hr />
@@ -57,14 +62,14 @@
             </tr>
             @foreach (DatosFarma customer in Model)
             {
-            <tr>
-                <td>@customer.Codigo</td>
-                <td>@customer.Nombre</td>
-                <td>@customer.Descricpion</td>
-                <td>@customer.Origen</td>
-                <td>@customer.Precio</td>
-                <td>@customer.Existencia</td>
-            </tr>
+                <tr>
+                    <td>@customer.Codigo</td>
+                    <td>@customer.Nombre</td>
+                    <td>@customer.Descricpion</td>
+                    <td>@customer.Origen</td>
+                    <td>@customer.Precio</td>
+                    <td>@customer.Existencia</td>
+                </tr>
             }
         </table>
     }
