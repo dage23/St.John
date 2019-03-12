@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using St.John.Models;
 using EstrucutrasNoLin;
+using lEstructurasLineales;
 namespace St.John.Gelpers
 {
     public class Datos
@@ -20,5 +21,6 @@ namespace St.John.Gelpers
             }
         }
         public ArbolBinarioBusqueda<DatosFarma> ArbolDrogas = new ArbolBinarioBusqueda<DatosFarma>();
+        public cListaDoblementeEnlazada<Cliente> ListaClientes = new cListaDoblementeEnlazada<Cliente>();
     }
 }

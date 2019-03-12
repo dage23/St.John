@@ -8,10 +8,13 @@ using St.John.Models;
 using System.Text.RegularExpressions;
 using EstrucutrasNoLin;
 using St.John.Gelpers;
+using lEstructurasLineales;
+
 namespace St.John.Controllers
 {
     public class FarmaController : Controller
     {
+        List<Cliente> ListaPedidos = new List<Cliente>();
         public ActionResult Index()
         {
             return View(new List<DatosFarma>());            
@@ -79,27 +82,7 @@ namespace St.John.Controllers
         public ActionResult Details(int id)
         {
             return View();
-        }
-        // GET: Farma/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-        // POST: Farma/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        }   
         // GET: Farma/Edit/5
         public ActionResult Edit(int id)
         {
@@ -147,16 +130,33 @@ namespace St.John.Controllers
         [HttpPost]
         public ActionResult Pedido(FormCollection collection)
         {
-            try
+            var EmpleadoActual = new Cliente
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+                NombreCliente = collection["NombreCliente"],
+                DireccionCliente = collection["DireccionCliente"],
+                NitCliente = collection["NitCliente"],
+                DrogaCliente = collection["DrogaCliente"],
+                CantDrogas = int.Parse(collection["CantDrogas"])
+            };
+            Datos.Instance.ListaClientes.Agregar(EmpleadoActual);
+            return RedirectToAction("VerListadoPedidos");           
         }
+        public ActionResult VerListadoPedidos()
+        {
+            return View(Datos.Instance.ListaClientes);
+        }
+        //[HttpPost]
+        //public ActionResult VerListaPedidos()
+        //{
+        //    try
+        //    {
+        //        return View(ListaPedidos);
+        //    }
+        //    catch 
+        //    {
+
+        //        return View();
+        //    }
+        //}
     }
 }
