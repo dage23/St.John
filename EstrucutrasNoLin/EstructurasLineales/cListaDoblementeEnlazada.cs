@@ -8,9 +8,23 @@ namespace lEstructurasLineales
     {
         private cNodo<T> nInicio { get; set; }
         static int iTamano { get; set; }
+        public T Buscar(Delegate comparer, T value)
+        {
+            var current = nInicio;
+            var outputList = new cListaDoblementeEnlazada<T>();
+            while (current != null)
+            {
+                if ((int)comparer.DynamicInvoke(current.sInformacion, value) == 0)
+                {
+                    return current.sInformacion;
+                }
+                current = current.nSiguiente;
+            }
+            return current.sInformacion;
+        }
         public void Agregar(T value)
         {            
-            if (iTamano == 0)
+            if (iTamano == 0||(nInicio==null))
             {
                 nInicio = new cNodo<T>(value);
                 iTamano = 1;

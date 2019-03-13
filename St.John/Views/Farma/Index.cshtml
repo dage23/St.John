@@ -55,20 +55,14 @@
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
-                <th>Descripción</th>
-                <th>Origen</th>
                 <th>Precio</th>
-                <th>Existencia</th>
             </tr>
             @foreach (DatosFarma customer in Model)
             {
                 <tr>
                     <td>@customer.Codigo</td>
                     <td>@customer.Nombre</td>
-                    <td>@customer.Descricpion</td>
-                    <td>@customer.Origen</td>
                     <td>@customer.Precio</td>
-                    <td>@customer.Existencia</td>
                 </tr>
             }
         </table>

@@ -10,23 +10,24 @@ namespace EstrucutrasNoLin
     public class ArbolBinarioBusqueda<T> : iEstructuraNoLineales<T> where T : IComparable
     {
         private Comparison<IComparable> Comparer = ComparerElements;
-        public T Encontrar(T value)
+
+        public T Encontrar(Delegate comparer, T value)
         {
             cNodo<T> Aux = this.Raiz;
+
             while (Aux != null)
-            {
-                if (Aux.sInformacion.Equals(value))
+            {   
+                if ((int)comparer.DynamicInvoke(Aux.sInformacion, value) == 0)
                 {
                     return Aux.sInformacion;
                 }
                 else
                 {
-                    bool Busq = Comparer((IComparable)value, (IComparable)Aux.sInformacion) < 0;
-                    if (Busq)
+                    if ((int)comparer.DynamicInvoke(Aux.sInformacion, value)>0)
                     {
                         Aux = Aux.nIzquierda;
                     }
-                    else if (!Busq)
+                    else if ((int)comparer.DynamicInvoke(Aux.sInformacion, value)<0)
                     {
                         Aux = Aux.nDerecha;
                     }

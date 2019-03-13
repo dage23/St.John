@@ -14,7 +14,7 @@ namespace St.John.Controllers
 {
     public class FarmaController : Controller
     {
-        List<Cliente> ListaPedidos = new List<Cliente>();
+
         public ActionResult Index()
         {
             return View(Datos.Instance.ListaDrogas);            
@@ -23,7 +23,6 @@ namespace St.John.Controllers
         public ActionResult Index(HttpPostedFileBase postedFile)
         {
            
-            List<DatosFarma> ListaDrogas = new List<DatosFarma>();
             string filePath = string.Empty;
             if (postedFile != null)
             {
@@ -64,7 +63,7 @@ namespace St.John.Controllers
                                     Precio = precio,
                                     Existencia = existecia
                                 };
-                                Datos.Instance.ListaDrogas.Add(DrogaListaActual);
+                                Datos.Instance.ListaDrogas.Agregar(DrogaListaActual);
                                 var DrogaActual = new DatosFarma
                                 {
                                     Nombre = nombre,
@@ -80,9 +79,9 @@ namespace St.John.Controllers
             return View(Datos.Instance.ListaDrogas);
         }
         // GET: Farma/Details/5
-        public ActionResult Details(int id)
+        public ActionResult ViewDetails()
         {
-            return View();
+            return View(Datos.Instance.paco);
         }   
         // GET: Farma/Edit/5
         public ActionResult Edit(int id)
@@ -146,12 +145,16 @@ namespace St.John.Controllers
             {
                 Nombre = collection["DrogaCliente"],
             };
-            Datos.Instance.ArbolDrogas.Encontrar(BuscarDroga);
+            var DrograEnLista = Datos.Instance.ArbolDrogas.Encontrar(DatosFarma.PorNombre,BuscarDroga);
+            var BuscarDrogaEnLista = new DatosFarma { };
+            BuscarDrogaEnLista=Datos.Instance.ListaDrogas.Buscar(DatosFarma.PorNombre, DrograEnLista);
+            Datos.Instance.paco.Agregar(BuscarDrogaEnLista);
             return RedirectToAction("VerListadoPedidos");           
         }
         public ActionResult VerListadoPedidos()
         {
             return View(Datos.Instance.ListaClientes);
         }
+        
     }
 }

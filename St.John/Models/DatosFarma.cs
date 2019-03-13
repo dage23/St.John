@@ -14,7 +14,10 @@ namespace St.John.Models
         public string Precio { get; set; }
         public string Existencia { get; set; }
 
-
+        public static Comparison<DatosFarma> PorNombre = delegate (DatosFarma s1, DatosFarma s2)
+          {
+              return s1.Nombre.CompareTo(s2.Nombre);
+          };
         public int CompareTo(object obj)
         {
             var vComparador = (DatosFarma)obj;

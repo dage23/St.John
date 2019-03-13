@@ -51,6 +51,9 @@
         <td>
             @Html.DisplayFor(modelItem => item.TotalCliente)
         </td>
+        <td>
+            @Html.ActionLink("Detalles", "ViewDetails", new { /* id=item.PrimaryKey */ })
+        </td>
     </tr>
     }
 
