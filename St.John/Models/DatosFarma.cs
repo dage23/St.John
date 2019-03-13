@@ -13,10 +13,12 @@ namespace St.John.Models
         public string Origen { get; set; }
         public string Precio { get; set; }
         public string Existencia { get; set; }
+
+
         public int CompareTo(object obj)
         {
             var vComparador = (DatosFarma)obj;
-            return Codigo.CompareTo(vComparador.Codigo);
+            return Nombre.CompareTo(vComparador.Nombre);
         }
     }  
 }

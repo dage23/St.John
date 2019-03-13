@@ -10,21 +10,20 @@ namespace St.John.Models
 {
     public class Cliente: IComparable, IEnumerable
     {
-        [Display(Name = "Nombre de Cliente")]
+        [Display(Name = "Nombre")]
         public string NombreCliente { get; set; }
 
-        [Display(Name = "Direccion de Cliente")]
+        [Display(Name = "Direccion")]
         public string DireccionCliente { get; set; }
 
-        [Display(Name = "NIT de Cliente")]
+        [Display(Name = "NIT")]
         public string NitCliente { get; set; }
 
-        [Display(Name = "Nombre de Droga")]
-        public string DrogaCliente { get; set; }
-            
-        [Display(Name = "Total de Pedido")]
+        [Display(Name = "Droga")]
+        public string DrogaCliente { get; set; }            
+        [Display(Name = "Total")]
         public string TotalCliente { get; set; }
-        [Display(Name = "Cantidad de Drogas")]
+        [Display(Name = "Cantidad")]
         public int CantDrogas { get; set; }
         public int CompareTo(object obj)
         {

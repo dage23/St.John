@@ -23,37 +23,35 @@
             @Html.DisplayNameFor(model => model.DrogaCliente)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TotalCliente)
+            @Html.DisplayNameFor(model => model.CantDrogas)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CantDrogas)
+            @Html.DisplayNameFor(model => model.TotalCliente)
         </th>
         <th></th>
     </tr>
-
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NombreCliente)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DireccionCliente)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NitCliente)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DrogaCliente)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TotalCliente)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CantDrogas)
-            </td>
-
-        </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NombreCliente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DireccionCliente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NitCliente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DrogaCliente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CantDrogas)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalCliente)
+        </td>
+    </tr>
     }
 
 </table>

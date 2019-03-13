@@ -17,7 +17,7 @@ namespace St.John.Controllers
         List<Cliente> ListaPedidos = new List<Cliente>();
         public ActionResult Index()
         {
-            return View(new List<DatosFarma>());            
+            return View(Datos.Instance.ListaDrogas);            
         }
         [HttpPost]
         public ActionResult Index(HttpPostedFileBase postedFile)
@@ -55,7 +55,7 @@ namespace St.John.Controllers
                                 string casa = fields[3];
                                 string precio = fields[4];
                                 string existecia = fields[5];
-                                ListaDrogas.Add(new DatosFarma
+                                var DrogaListaActual=new DatosFarma
                                 {
                                     Codigo = Id,
                                     Nombre = nombre,
@@ -63,7 +63,8 @@ namespace St.John.Controllers
                                     Origen = casa,
                                     Precio = precio,
                                     Existencia = existecia
-                                });
+                                };
+                                Datos.Instance.ListaDrogas.Add(DrogaListaActual);
                                 var DrogaActual = new DatosFarma
                                 {
                                     Nombre = nombre,
@@ -76,7 +77,7 @@ namespace St.John.Controllers
                     bandera = false;
                 }
             }
-            return View(ListaDrogas);
+            return View(Datos.Instance.ListaDrogas);
         }
         // GET: Farma/Details/5
         public ActionResult Details(int id)
@@ -130,33 +131,27 @@ namespace St.John.Controllers
         [HttpPost]
         public ActionResult Pedido(FormCollection collection)
         {
-            var EmpleadoActual = new Cliente
+            double PrecioTotal = 0;
+            var PedidoActual = new Cliente
             {
                 NombreCliente = collection["NombreCliente"],
                 DireccionCliente = collection["DireccionCliente"],
                 NitCliente = collection["NitCliente"],
                 DrogaCliente = collection["DrogaCliente"],
-                CantDrogas = int.Parse(collection["CantDrogas"])
+                CantDrogas = int.Parse(collection["CantDrogas"]),
+                TotalCliente = Convert.ToString(PrecioTotal),
             };
-            Datos.Instance.ListaClientes.Agregar(EmpleadoActual);
+            Datos.Instance.ListaClientes.Agregar(PedidoActual);
+            var BuscarDroga = new DatosFarma
+            {
+                Nombre = collection["DrogaCliente"],
+            };
+            Datos.Instance.ArbolDrogas.Encontrar(BuscarDroga);
             return RedirectToAction("VerListadoPedidos");           
         }
         public ActionResult VerListadoPedidos()
         {
             return View(Datos.Instance.ListaClientes);
         }
-        //[HttpPost]
-        //public ActionResult VerListaPedidos()
-        //{
-        //    try
-        //    {
-        //        return View(ListaPedidos);
-        //    }
-        //    catch 
-        //    {
-
-        //        return View();
-        //    }
-        //}
     }
 }

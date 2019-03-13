@@ -9,6 +9,6 @@ namespace EstrucutrasNoLin
     interface iEstructuraNoLineales<T>
     {
         void Insertar(T value);
-        void Buscar(T value);        
+        void Buscar(T value);
     }
 }
