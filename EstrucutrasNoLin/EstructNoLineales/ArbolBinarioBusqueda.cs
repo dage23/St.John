@@ -14,7 +14,6 @@ namespace EstrucutrasNoLin
         public T Encontrar(Delegate comparer, T value)
         {
             cNodo<T> Aux = this.Raiz;
-
             while (Aux != null)
             {   
                 if ((int)comparer.DynamicInvoke(Aux.sInformacion, value) == 0)
@@ -37,7 +36,7 @@ namespace EstrucutrasNoLin
                     }
                 }
             }
-            return default(T);//No se retorna value, es solo para que no de error a la ejecucción
+            return default(T);//Defalut(T) es decir que retorna el quivalente a null
         }
         private static int ComparerElements(IComparable value, IComparable sInformacion)
         {

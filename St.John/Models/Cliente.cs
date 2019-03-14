@@ -8,17 +8,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace St.John.Models
 {
-    public class Cliente: IComparable, IEnumerable
+    public class Cliente : IComparable, IEnumerable
     {
         [Display(Name = "Nombre")]
         public string NombreCliente { get; set; }
-
         [Display(Name = "Direccion")]
         public string DireccionCliente { get; set; }
-
         [Display(Name = "NIT")]
         public string NitCliente { get; set; }
-
         [Display(Name = "Droga")]
         public string DrogaCliente { get; set; }            
         [Display(Name = "Total")]

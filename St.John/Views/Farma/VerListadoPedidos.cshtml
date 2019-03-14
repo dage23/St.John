@@ -32,29 +32,29 @@
     </tr>
     @foreach (var item in Model)
     {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.NombreCliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DireccionCliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NitCliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DrogaCliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CantDrogas)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TotalCliente)
-        </td>
-        <td>
-            @Html.ActionLink("Detalles", "ViewDetails", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreCliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DireccionCliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NitCliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DrogaCliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CantDrogas)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalCliente)
+            </td>
+            <td>
+                @Html.ActionLink("Detalles", "ViewDetails", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
     }
 
 </table>

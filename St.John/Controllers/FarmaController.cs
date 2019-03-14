@@ -14,15 +14,13 @@ namespace St.John.Controllers
 {
     public class FarmaController : Controller
     {
-
         public ActionResult Index()
         {
             return View(Datos.Instance.ListaDrogas);            
         }
         [HttpPost]
         public ActionResult Index(HttpPostedFileBase postedFile)
-        {
-           
+        {           
             string filePath = string.Empty;
             if (postedFile != null)
             {
@@ -53,21 +51,23 @@ namespace St.John.Controllers
                                 string descripcion = fields[2];
                                 string casa = fields[3];
                                 string precio = fields[4];
+                                precio = precio.Replace("$", "");
                                 string existecia = fields[5];
-                                var DrogaListaActual=new DatosFarma
+                                var DrogaListaActual = new DatosFarma
                                 {
                                     Codigo = Id,
                                     Nombre = nombre,
                                     Descricpion = descripcion,
                                     Origen = casa,
                                     Precio = precio,
-                                    Existencia = existecia
+                                    Existencia = existecia,
                                 };
                                 Datos.Instance.ListaDrogas.Agregar(DrogaListaActual);
                                 var DrogaActual = new DatosFarma
                                 {
                                     Nombre = nombre,
-                                    Codigo = Id
+                                    Codigo = Id,
+                                    Precio = precio,
                                 };
                                 Datos.Instance.ArbolDrogas.Insertar(DrogaActual);
                             }
@@ -130,31 +130,34 @@ namespace St.John.Controllers
         [HttpPost]
         public ActionResult Pedido(FormCollection collection)
         {
-            double PrecioTotal = 0;
-            var PedidoActual = new Cliente
+            var PedidoActual = new Cliente//Lista del cliente
             {
                 NombreCliente = collection["NombreCliente"],
                 DireccionCliente = collection["DireccionCliente"],
                 NitCliente = collection["NitCliente"],
                 DrogaCliente = collection["DrogaCliente"],
                 CantDrogas = int.Parse(collection["CantDrogas"]),
-                TotalCliente = Convert.ToString(PrecioTotal),
             };
-            Datos.Instance.ListaClientes.Agregar(PedidoActual);
-            var BuscarDroga = new DatosFarma
+            if (PedidoActual.CantDrogas < 0)//Sii el usuario selecciona un valor menor a 0
+            {
+                PedidoActual.CantDrogas = PedidoActual.CantDrogas * -1;//Volverlo positivo
+            }
+            var BuscarDroga = new DatosFarma//Buscar la droga que el cliente desea comprar
             {
                 Nombre = collection["DrogaCliente"],
             };
-            var DrograEnLista = Datos.Instance.ArbolDrogas.Encontrar(DatosFarma.PorNombre,BuscarDroga);
-            var BuscarDrogaEnLista = new DatosFarma { };
-            BuscarDrogaEnLista=Datos.Instance.ListaDrogas.Buscar(DatosFarma.PorNombre, DrograEnLista);
+            var DrograEnLista = Datos.Instance.ArbolDrogas.Encontrar(DatosFarma.PorNombre, BuscarDroga);
+            double Final = Convert.ToDouble(Convert.ToDouble(DrograEnLista.Precio) * PedidoActual.CantDrogas);//Se realiza la multiplicación del precio y cantidad
+            var BuscarDrogaEnLista = new DatosFarma { };//Se mantienen los datos que se obtubieron al hacer la busqueda previa
+            BuscarDrogaEnLista = Datos.Instance.ListaDrogas.Buscar(DatosFarma.PorNombre, DrograEnLista);
             Datos.Instance.paco.Agregar(BuscarDrogaEnLista);
-            return RedirectToAction("VerListadoPedidos");           
+            PedidoActual.TotalCliente = (Final).ToString();//Se guarda en la lista del cliente
+            Datos.Instance.ListaClientes.Agregar(PedidoActual);
+            return RedirectToAction("VerListadoPedidos");
         }
         public ActionResult VerListadoPedidos()
         {
             return View(Datos.Instance.ListaClientes);
-        }
-        
+        }        
     }
 }
