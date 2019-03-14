@@ -130,6 +130,7 @@ namespace St.John.Controllers
         [HttpPost]
         public ActionResult Pedido(FormCollection collection)
         {
+            Random Reabastecer = new Random();
             var PedidoActual = new Cliente//Lista del cliente
             {
                 NombreCliente = collection["NombreCliente"],
@@ -150,6 +151,12 @@ namespace St.John.Controllers
             double Final = Convert.ToDouble(Convert.ToDouble(DrograEnLista.Precio) * PedidoActual.CantDrogas);//Se realiza la multiplicación del precio y cantidad
             var BuscarDrogaEnLista = new DatosFarma { };//Se mantienen los datos que se obtubieron al hacer la busqueda previa
             BuscarDrogaEnLista = Datos.Instance.ListaDrogas.Buscar(DatosFarma.PorNombre, DrograEnLista);
+            var ExistenciaDroga = Convert.ToInt32(BuscarDrogaEnLista.Existencia) - PedidoActual.CantDrogas;
+            BuscarDrogaEnLista.Existencia = ExistenciaDroga.ToString();
+            if (Convert.ToInt32(BuscarDrogaEnLista.Existencia) <= 0)
+            {
+                BuscarDrogaEnLista.Existencia = (Reabastecer.Next(0, 15)).ToString();
+            }
             Datos.Instance.paco.Agregar(BuscarDrogaEnLista);
             PedidoActual.TotalCliente = (Final).ToString();//Se guarda en la lista del cliente
             Datos.Instance.ListaClientes.Agregar(PedidoActual);
