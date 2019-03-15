@@ -32,7 +32,6 @@ namespace St.John.Controllers
                 filePath = path + Path.GetFileName(postedFile.FileName);
                 string extension = Path.GetExtension(postedFile.FileName);
                 postedFile.SaveAs(filePath);
-
                 string csvData = System.IO.File.ReadAllText(filePath);
                 Regex CSV = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))");
                 bool bandera = true;
@@ -68,6 +67,7 @@ namespace St.John.Controllers
                                     Nombre = nombre,
                                     Codigo = Id,
                                     Precio = precio,
+                                    Existencia = existecia,
                                 };
                                 Datos.Instance.ArbolDrogas.Insertar(DrogaActual);
                             }
@@ -139,17 +139,17 @@ namespace St.John.Controllers
                 DrogaCliente = collection["DrogaCliente"],
                 CantDrogas = int.Parse(collection["CantDrogas"]),
             };
-            if (PedidoActual.CantDrogas < 0)//Sii el usuario selecciona un valor menor a 0
-            {
-                PedidoActual.CantDrogas = PedidoActual.CantDrogas * -1;//Volverlo positivo
-            }
             var BuscarDroga = new DatosFarma//Buscar la droga que el cliente desea comprar
             {
                 Nombre = collection["DrogaCliente"],
             };
             var DrograEnLista = Datos.Instance.ArbolDrogas.Encontrar(DatosFarma.PorNombre, BuscarDroga);
-            double Final = Convert.ToDouble(Convert.ToDouble(DrograEnLista.Precio) * PedidoActual.CantDrogas);//Se realiza la multiplicación del precio y cantidad
-            var BuscarDrogaEnLista = new DatosFarma { };//Se mantienen los datos que se obtubieron al hacer la busqueda previa
+            if (PedidoActual.CantDrogas < 0 || (PedidoActual.CantDrogas > Convert.ToInt32(DrograEnLista.Existencia)))
+            {
+                return RedirectToAction("Pedido");
+            }
+            double Final = Convert.ToDouble(Convert.ToDouble(DrograEnLista.Precio) * PedidoActual.CantDrogas);
+            var BuscarDrogaEnLista = new DatosFarma { };
             BuscarDrogaEnLista = Datos.Instance.ListaDrogas.Buscar(DatosFarma.PorNombre, DrograEnLista);
             var ExistenciaDroga = Convert.ToInt32(BuscarDrogaEnLista.Existencia) - PedidoActual.CantDrogas;
             BuscarDrogaEnLista.Existencia = ExistenciaDroga.ToString();
