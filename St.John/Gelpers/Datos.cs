@@ -23,6 +23,6 @@ namespace St.John.Gelpers
         public ArbolBinarioBusqueda<DatosFarma> ArbolDrogas = new ArbolBinarioBusqueda<DatosFarma>();
         public cListaDoblementeEnlazada<Cliente> ListaClientes = new cListaDoblementeEnlazada<Cliente>();
         public cListaDoblementeEnlazada<DatosFarma> ListaDrogas = new cListaDoblementeEnlazada<DatosFarma>();
-        public cListaDoblementeEnlazada<DatosFarma> paco = new cListaDoblementeEnlazada<DatosFarma>();
+        public cListaDoblementeEnlazada<DatosFarma> ListaDePedidosDeDrogas = new cListaDoblementeEnlazada<DatosFarma>();
     }
 }

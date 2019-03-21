@@ -124,9 +124,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Alert.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\FarmaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Gelpers\Datos.cs" />
@@ -212,10 +214,12 @@
     <Content Include="Views\Farma\Pedido.cshtml" />
     <Content Include="Views\Farma\VerListadoPedidos.cshtml" />
     <Content Include="Views\Farma\ViewDetails.cshtml" />
+    <Content Include="Views\Shared\_Alerts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Fakes\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

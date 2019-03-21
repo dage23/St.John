@@ -9,18 +9,19 @@ using System.Text.RegularExpressions;
 using EstrucutrasNoLin;
 using St.John.Gelpers;
 using lEstructurasLineales;
+using St.John.Controllers;
 
 namespace St.John.Controllers
 {
-    public class FarmaController : Controller
+    public class FarmaController : BaseController
     {
         public ActionResult Index()
         {
-            return View(Datos.Instance.ListaDrogas);            
+            return View(Datos.Instance.ListaDrogas);
         }
         [HttpPost]
         public ActionResult Index(HttpPostedFileBase postedFile)
-        {           
+        {
             string filePath = string.Empty;
             if (postedFile != null)
             {
@@ -33,47 +34,43 @@ namespace St.John.Controllers
                 string extension = Path.GetExtension(postedFile.FileName);
                 postedFile.SaveAs(filePath);
                 string csvData = System.IO.File.ReadAllText(filePath);
+                csvData.Remove(1);
                 Regex CSV = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))");
-                bool bandera = true;
                 foreach (string row in csvData.Split('\n'))
                 {
                     if (!string.IsNullOrEmpty(row))
                     {
                         String[] fields = CSV.Split(row);
-                        if (!bandera)
+                        fields[0] = fields[0].Trim();
+                        string Id = fields[0];
+                        string nombre = fields[1];
+                        nombre = nombre.Replace('"', ' ');
+                        string descripcion = fields[2];
+                        descripcion = descripcion.Replace('"', ' ');
+                        string casa = fields[3];
+                        casa = casa.Replace('"', ' ');
+                        string precio = fields[4];
+                        precio = precio.Replace("$", "");
+                        string existecia = fields[5];
+                        var DrogaListaActual = new DatosFarma
                         {
-                            for (int i = 0; i < 1; i++)
-                            {
-                                fields[i] = fields[i].Trim();
-                                string Id = fields[0];
-                                string nombre = fields[1];
-                                string descripcion = fields[2];
-                                string casa = fields[3];
-                                string precio = fields[4];
-                                precio = precio.Replace("$", "");
-                                string existecia = fields[5];
-                                var DrogaListaActual = new DatosFarma
-                                {
-                                    Codigo = Id,
-                                    Nombre = nombre,
-                                    Descricpion = descripcion,
-                                    Origen = casa,
-                                    Precio = precio,
-                                    Existencia = existecia,
-                                };
-                                Datos.Instance.ListaDrogas.Agregar(DrogaListaActual);
-                                var DrogaActual = new DatosFarma
-                                {
-                                    Nombre = nombre,
-                                    Codigo = Id,
-                                    Precio = precio,
-                                    Existencia = existecia,
-                                };
-                                Datos.Instance.ArbolDrogas.Insertar(DrogaActual);
-                            }
-                        }                           
+                            Codigo = Id,
+                            Nombre = nombre,
+                            Descricpion = descripcion,
+                            Origen = casa,
+                            Precio = precio,
+                            Existencia = existecia,
+                        };
+                        Datos.Instance.ListaDrogas.Agregar(DrogaListaActual);
+                        var DrogaActual = new DatosFarma
+                        {
+                            Nombre = nombre,
+                            Codigo = Id,
+                            Precio = precio,
+                            Existencia = existecia,
+                        };
+                        Datos.Instance.ArbolDrogas.Insertar(DrogaActual);
                     }
-                    bandera = false;
                 }
             }
             return View(Datos.Instance.ListaDrogas);
@@ -81,8 +78,8 @@ namespace St.John.Controllers
         // GET: Farma/Details/5
         public ActionResult ViewDetails()
         {
-            return View(Datos.Instance.paco);
-        }   
+            return View(Datos.Instance.ListaDePedidosDeDrogas);
+        }
         // GET: Farma/Edit/5
         public ActionResult Edit(int id)
         {
@@ -131,7 +128,7 @@ namespace St.John.Controllers
         public ActionResult Pedido(FormCollection collection)
         {
             Random Reabastecer = new Random();
-            var PedidoActual = new Cliente//Lista del cliente
+            var PedidoActual = new Cliente
             {
                 NombreCliente = collection["NombreCliente"],
                 DireccionCliente = collection["DireccionCliente"],
@@ -139,15 +136,17 @@ namespace St.John.Controllers
                 DrogaCliente = collection["DrogaCliente"],
                 CantDrogas = int.Parse(collection["CantDrogas"]),
             };
-            var BuscarDroga = new DatosFarma//Buscar la droga que el cliente desea comprar
+            var BuscarDroga = new DatosFarma
             {
                 Nombre = collection["DrogaCliente"],
             };
             var DrograEnLista = Datos.Instance.ArbolDrogas.Encontrar(DatosFarma.PorNombre, BuscarDroga);
             if (PedidoActual.CantDrogas < 0 || (PedidoActual.CantDrogas > Convert.ToInt32(DrograEnLista.Existencia)))
             {
+                Danger("No se cuenta con la cantidad de drogas solicitadas.");
                 return RedirectToAction("Pedido");
             }
+            DrograEnLista.Existencia = (Convert.ToInt32(DrograEnLista.Existencia) - PedidoActual.CantDrogas).ToString();
             double Final = Convert.ToDouble(Convert.ToDouble(DrograEnLista.Precio) * PedidoActual.CantDrogas);
             var BuscarDrogaEnLista = new DatosFarma { };
             BuscarDrogaEnLista = Datos.Instance.ListaDrogas.Buscar(DatosFarma.PorNombre, DrograEnLista);
@@ -157,14 +156,15 @@ namespace St.John.Controllers
             {
                 BuscarDrogaEnLista.Existencia = (Reabastecer.Next(0, 15)).ToString();
             }
-            Datos.Instance.paco.Agregar(BuscarDrogaEnLista);
-            PedidoActual.TotalCliente = (Final).ToString();//Se guarda en la lista del cliente
+            Datos.Instance.ListaDePedidosDeDrogas.Agregar(BuscarDrogaEnLista);
+            PedidoActual.TotalCliente = (Final).ToString();
             Datos.Instance.ListaClientes.Agregar(PedidoActual);
+            Success(PedidoActual.DrogaCliente + " agregado a su factura");
             return RedirectToAction("VerListadoPedidos");
         }
         public ActionResult VerListadoPedidos()
         {
             return View(Datos.Instance.ListaClientes);
-        }        
+        }
     }
 }

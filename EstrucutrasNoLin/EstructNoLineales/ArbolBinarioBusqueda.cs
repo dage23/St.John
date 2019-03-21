@@ -36,41 +36,12 @@ namespace EstrucutrasNoLin
                     }
                 }
             }
-            return default(T);//Defalut(T) es decir que retorna el quivalente a null
+            return default(T);
         }
         private static int ComparerElements(IComparable value, IComparable sInformacion)
         {
             return value.CompareTo(sInformacion);
         }
-        //    public cNodo<T> Encontrar(T value)
-        //    {
-        //        foreach (cNodo<T> items in Traversal(Raiz))
-        //        {
-        //            if (items.sInformacion.Equals(value))
-        //            {
-        //                return items;
-        //            }
-        //        }
-        //        return null;                
-        //    }
-        //    private IEnumerable<cNodo<T>> Traversal(cNodo<T> Nodo)
-        //    {
-        //        if (Nodo.nIzquierda != null)
-        //        {
-        //            foreach (cNodo<T> NodoI in Traversal(Nodo.nIzquierda))
-        //            {
-        //                yield return NodoI;
-        //            }
-        //        }
-        //        yield return Nodo;
-        //        if (Nodo.nDerecha != null)
-        //        {
-        //            foreach (cNodo<T> NodoD in Traversal(Nodo.nDerecha))
-        //            {
-        //                yield return NodoD;
-        //            }
-        //        }
-        //    }
         private cNodo<T> Raiz { get; set; }
         public void Buscar(T value)
         {
@@ -89,16 +60,16 @@ namespace EstrucutrasNoLin
         {
             if (Raiz == null)
             {
-                Raiz = new cNodo<T>(value);//Se manda la información a la raiz
+                Raiz = new cNodo<T>(value);
             }
             else
             {
                 cNodo<T> Temporal = Raiz;
                 bool Encontrado = false;
-                while (!Encontrado)//Recorrido del arbol
+                while (!Encontrado)
                 {
-                    int ValueComp = Temporal.sInformacion.CompareTo(value);//Comprara para devolver valores de -1 y +1
-                    if (ValueComp > 0)//Valores -1 van a la izquierda
+                    int ValueComp = Temporal.sInformacion.CompareTo(value);
+                    if (ValueComp > 0)
                     {
                         if (Temporal.nIzquierda == null)
                         {
@@ -110,7 +81,7 @@ namespace EstrucutrasNoLin
                             Temporal = Temporal.nIzquierda;
                         }
                     }
-                    else if (ValueComp < 0)//Valores +1 van a la derecha
+                    else if (ValueComp < 0)
                     {
                         if (Temporal.nDerecha == null)
                         {
