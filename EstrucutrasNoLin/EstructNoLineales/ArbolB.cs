@@ -224,13 +224,13 @@ namespace EstrucutrasNoLin
             var NuevoNodo = new NodoBArbol<TK, TP>(this.Grado);
 
             NodoPapa.ListaValores.Insert(IndiceNodoaDividir, NodoaDividir.ListaValores[this.Grado - 1]);
-            NodoaDividir.ListaHijos.Insert(IndiceNodoaDividir + 1, NuevoNodo);
+            NodoaDividir.ListaHijos.Insert((IndiceNodoaDividir), NuevoNodo);
 
             NuevoNodo.ListaValores.AddRange(NodoaDividir.ListaValores.GetRange(this.Grado, this.Grado - 1));
 
             NodoaDividir.ListaValores.RemoveRange(this.Grado - 1, this.Grado);
 
-            if (!NodoaDividir.EsHoja)
+            if (NodoaDividir.EsHoja)
             {
                 NuevoNodo.ListaHijos.AddRange(NodoaDividir.ListaHijos.GetRange(this.Grado, this.Grado));
                 NodoaDividir.ListaHijos.RemoveRange(this.Grado, this.Grado);
@@ -247,7 +247,7 @@ namespace EstrucutrasNoLin
                 return;
             }
 
-            NodoBArbol<TK, TP> Hijo = NodoTempo.ListaHijos[PosicionaInsertar];
+            NodoBArbol<TK, TP> Hijo = NodoTempo.ListaHijos[PosicionaInsertar-1];
             if (Hijo.ValoresMaximosAlcanzados)
             {
                 this.DividirHijo(NodoTempo, PosicionaInsertar, Hijo);

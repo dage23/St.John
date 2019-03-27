@@ -11,11 +11,12 @@ namespace EstrucutrasNoLin
         private int Grado;
         public List<NodoBArbol<TK,TP>> ListaHijos { get; set; }
         public List<Indice<TK, TP>> ListaValores { get; set; }
+        
         public NodoBArbol(int Grado)
         {
             this.Grado = Grado;
-            this.ListaHijos = ListaHijos;
-            this.ListaValores = ListaValores;
+            ListaHijos = new List<NodoBArbol<TK, TP>>();
+            ListaValores = new List<Indice<TK, TP>>();
         }
         public bool EsHoja
         {

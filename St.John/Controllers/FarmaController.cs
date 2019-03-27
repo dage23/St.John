@@ -34,13 +34,15 @@ namespace St.John.Controllers
                 string extension = Path.GetExtension(postedFile.FileName);
                 postedFile.SaveAs(filePath);
                 string csvData = System.IO.File.ReadAllText(filePath);
-                csvData.Remove(1);
+                //csvData.Remove(1);
                 Regex CSV = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))");
                 int NumeroApuntador = 0;
+                int numeroAux = 0;
                 foreach (string row in csvData.Split('\n'))
                 {
                     if (!string.IsNullOrEmpty(row))
                     {
+                        int IDDrug;
                         String[] fields = CSV.Split(row);
                         fields[0] = fields[0].Trim();
                         string Id = fields[0];
@@ -62,18 +64,22 @@ namespace St.John.Controllers
                             Precio = precio,
                             Existencia = existecia,
                         };
-                        int IDDrug = int.Parse(DrogaListaActual.Codigo);
-                        Datos.Instance.ArbolBDrogas.Insertar(IDDrug,NumeroApuntador);
-                        Datos.Instance.ListaDrogas.Agregar(DrogaListaActual);
-                        var DrogaActual = new DatosFarma
+                        if (numeroAux != 0)
                         {
-                            Nombre = nombre,
-                            Codigo = Id,
-                            Precio = precio,
-                            Existencia = existecia,
-                        };
-                        Datos.Instance.ArbolDrogas.Insertar(DrogaActual);
-                        NumeroApuntador++;
+                            IDDrug = int.Parse(DrogaListaActual.Codigo);
+                            Datos.Instance.ArbolBDrogas.Insertar(IDDrug, NumeroApuntador);
+                            Datos.Instance.ListaDrogas.Agregar(DrogaListaActual);
+                            var DrogaActual = new DatosFarma
+                            {
+                                Nombre = nombre,
+                                Codigo = Id,
+                                Precio = precio,
+                                Existencia = existecia,
+                            };
+                            Datos.Instance.ArbolDrogas.Insertar(DrogaActual);
+                            NumeroApuntador++;
+                        }
+                        numeroAux++;
                     }
                 }
             }
