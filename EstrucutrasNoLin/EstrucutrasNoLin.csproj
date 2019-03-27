@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EstructNoLineales\ArbolB.cs" />
+    <Compile Include="EstructNoLineales\Indice.cs" />
+    <Compile Include="EstructNoLineales\NodoBArbol.cs" />
     <Compile Include="EstructNoLineales\ArbolBinarioBusqueda.cs" />
     <Compile Include="EstructurasLineales\cListaDoblementeEnlazada.cs" />
     <Compile Include="EstructurasLineales\cNodo.cs" />

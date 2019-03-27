@@ -24,5 +24,6 @@ namespace St.John.Gelpers
         public cListaDoblementeEnlazada<Cliente> ListaClientes = new cListaDoblementeEnlazada<Cliente>();
         public cListaDoblementeEnlazada<DatosFarma> ListaDrogas = new cListaDoblementeEnlazada<DatosFarma>();
         public cListaDoblementeEnlazada<DatosFarma> ListaDePedidosDeDrogas = new cListaDoblementeEnlazada<DatosFarma>();
+        public ArbolB<int, int> ArbolBDrogas = new ArbolB<int, int>(5);
     }
 }

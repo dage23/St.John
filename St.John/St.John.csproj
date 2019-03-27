@@ -132,6 +132,7 @@
     <Compile Include="Controllers\FarmaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Gelpers\Datos.cs" />
+    <Compile Include="Gelpers\ValidarArbol.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

@@ -36,6 +36,7 @@ namespace St.John.Controllers
                 string csvData = System.IO.File.ReadAllText(filePath);
                 csvData.Remove(1);
                 Regex CSV = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))");
+                int NumeroApuntador = 0;
                 foreach (string row in csvData.Split('\n'))
                 {
                     if (!string.IsNullOrEmpty(row))
@@ -61,6 +62,8 @@ namespace St.John.Controllers
                             Precio = precio,
                             Existencia = existecia,
                         };
+                        int IDDrug = int.Parse(DrogaListaActual.Codigo);
+                        Datos.Instance.ArbolBDrogas.Insertar(IDDrug,NumeroApuntador);
                         Datos.Instance.ListaDrogas.Agregar(DrogaListaActual);
                         var DrogaActual = new DatosFarma
                         {
@@ -70,6 +73,7 @@ namespace St.John.Controllers
                             Existencia = existecia,
                         };
                         Datos.Instance.ArbolDrogas.Insertar(DrogaActual);
+                        NumeroApuntador++;
                     }
                 }
             }
