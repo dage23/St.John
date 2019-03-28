@@ -8,7 +8,6 @@ html {
   box-sizing: border-box;
   -ms-overflow-style: scrollbar;
 }
-
 *,
 *::before,
 *::after {
@@ -3717,3 +3716,18 @@ html {
   }
 }
 /*# sourceMappingURL=bootstrap-grid.css.map */
+a.my-class {
+    color: #C0C0C0
+}
+
+    a.my-class:active {
+        color: #C0C0C0
+    }
+
+    a.my-class:link {
+        color: #C0C0C0
+    }
+
+    a.my-class:visited {
+        color: #C0C0C0
+    }

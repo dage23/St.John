@@ -11115,3 +11115,18 @@ legend {
 .list-group-item:hover {
     background-color: #1c1e22
 }
+a.my-class {
+    color: #C0C0C0
+}
+
+    a.my-class:active {
+        color: #C0C0C0
+    }
+
+    a.my-class:link {
+        color: #C0C0C0
+    }
+
+    a.my-class:visited {
+        color: #C0C0C0
+    }

@@ -162,15 +162,24 @@ namespace St.John.Controllers
             BuscarDrogaEnLista = Datos.Instance.ListaDrogas.Buscar(DatosFarma.PorNombre, DrograEnLista);
             var ExistenciaDroga = Convert.ToInt32(BuscarDrogaEnLista.Existencia) - PedidoActual.CantDrogas;
             BuscarDrogaEnLista.Existencia = ExistenciaDroga.ToString();
-            if (Convert.ToInt32(BuscarDrogaEnLista.Existencia) <= 0)
+            if (Convert.ToInt32(BuscarDrogaEnLista.Existencia) < 0)
             {
-                BuscarDrogaEnLista.Existencia = (Reabastecer.Next(0, 15)).ToString();
+                var test = BuscarDrogaEnLista.Cantidad;
+                Reabastecimiento(test).ToString();
+                BuscarDrogaEnLista.Cantidad = test;
             }
             Datos.Instance.ListaDePedidosDeDrogas.Agregar(BuscarDrogaEnLista);
             PedidoActual.TotalCliente = (Final).ToString();
             Datos.Instance.ListaClientes.Agregar(PedidoActual);
             Success(PedidoActual.DrogaCliente + " agregado a su factura");
             return RedirectToAction("VerListadoPedidos");
+        }
+        public ActionResult Reabastecimiento(string Cantidad)
+        {
+            Random Reabastecer = new Random();
+            Reabastecer.Next(0, 15);
+            Information("Reabastecimiento completado con " + Reabastecer.ToString());
+            return RedirectToAction("Pedido");
         }
         public ActionResult VerListadoPedidos()
         {

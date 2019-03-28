@@ -207,7 +207,6 @@ namespace EstrucutrasNoLin
             }
             return this.BorrarPredecesor(Nodo.ListaHijos.First());
         }
-
         private Indice<TK, TP> BusquedaInterna(NodoBArbol<TK, TP> NodoTempo, TK Id)
         {
             int i = NodoTempo.ListaValores.TakeWhile(indice => Id.CompareTo(indice.ID) > 0).Count();
@@ -218,7 +217,6 @@ namespace EstrucutrasNoLin
             }
             return NodoTempo.EsHoja ? null : this.BusquedaInterna(NodoTempo.ListaHijos[i], Id);
         }
-
         private void DividirHijo(NodoBArbol<TK, TP> NodoPapa, int IndiceNodoaDividir, NodoBArbol<TK, TP> NodoaDividir)
         {
             var NuevoNodo = new NodoBArbol<TK, TP>(this.Grado);
@@ -236,7 +234,6 @@ namespace EstrucutrasNoLin
                 NodoaDividir.ListaHijos.RemoveRange(this.Grado, this.Grado);
             }
         }
-
         private void InsertarEnNodoNoLLeno(NodoBArbol<TK, TP> NodoTempo, TK nuevaID, TP nuevoApuntador)
         {
             int PosicionaInsertar = NodoTempo.ListaValores.TakeWhile(entry => nuevaID.CompareTo(entry.ID) >= 0).Count();
@@ -246,7 +243,6 @@ namespace EstrucutrasNoLin
                 NodoTempo.ListaValores.Insert(PosicionaInsertar, new Indice<TK, TP>() { ID = nuevaID, Apuntador = nuevoApuntador });
                 return;
             }
-
             NodoBArbol<TK, TP> Hijo = NodoTempo.ListaHijos[PosicionaInsertar-1];
             if (Hijo.ValoresMaximosAlcanzados)
             {
@@ -256,8 +252,6 @@ namespace EstrucutrasNoLin
                     PosicionaInsertar++;
                 }
             }
-
-            this.InsertarEnNodoNoLLeno(NodoTempo.ListaHijos[PosicionaInsertar], nuevaID, nuevoApuntador);
         }
     }
 }

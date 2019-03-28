@@ -12,17 +12,15 @@ namespace St.John.Controllers
         {
             return View();
         }
-
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Pendiente...";
 
             return View();
         }
-
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Pendiente...";
 
             return View();
         }

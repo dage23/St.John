@@ -1,8 +1,6 @@
 ﻿@using St.John.Models
 @model IEnumerable<DatosFarma>
-@{
-    Layout = null;
-}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,9 +15,8 @@
         }
 
         table {
-            border: 1px solid #ccc;
-            border-collapse: collapse;
-            background-color: #fff;
+            border: 5px solid #036312;
+            background-color: #333;
         }
 
             table th {
@@ -30,11 +27,11 @@
 
             table th, table td {
                 padding: 5px;
-                border: 1px solid #ccc;
+                border: 1px solid #036312;
             }
 
             table, table table td {
-                border: 0px solid #ccc;
+                border: 0px solid #036312;
             }
     </style>
 </head>
@@ -42,8 +39,8 @@
 
     @using (Html.BeginForm("Index", "Farma", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
-        <input type="file" name="postedFile" />
-        <input type="submit" value="Importar" />
+        <input type="file" name="postedFile"/>
+        <input type="submit" value="Importar" class="btn btn-default"/>
     }
     <div>
         @Html.ActionLink("Solicitar Pedido", "Pedido")
